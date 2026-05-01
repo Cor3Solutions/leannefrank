@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leanne Frank — Web Developer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafaf8;
+            --surface: #f4f4f0;
+            --border: #e8e8e2;
+            --text: #1a1a18;
+            --muted: #888880;
+            --accent: #2563eb;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Geist', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* NAV */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.4rem 3rem;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(250, 250, 248, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+
+        .nav-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            color: var(--text);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-size: 0.82rem;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        /* HERO */
+        .hero {
+            padding: 5rem 3rem 4rem;
+            max-width: 720px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #22c55e;
+            animation: blink 2.5s ease infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.3
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--muted);
+        }
+
+        .hero p {
+            font-size: 0.92rem;
+            color: var(--muted);
+            max-width: 440px;
+            line-height: 1.75;
+        }
+
+        /* SECTION */
+        .section {
+            padding: 3.5rem 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* FILTER */
+        .filters {
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .filter-btn {
+            padding: 0.32rem 0.85rem;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            font-family: 'Geist', sans-serif;
+            font-size: 0.75rem;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.18s;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--text);
+            color: var(--text);
+        }
+
+        .filter-btn.active {
+            background: var(--text);
+            border-color: var(--text);
+            color: var(--bg);
+        }
+
+        /* GRID */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .card {
+            background: var(--bg);
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            transition: background 0.25s;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Screenshot fills the card */
+        .card-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.03);
+            opacity: 0.5;
+        }
+
+        .card-info {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.2rem;
+            background: linear-gradient(to top, rgba(250, 250, 248, 0.97) 0%, rgba(250, 250, 248, 0.4) 45%, transparent 100%);
+        }
+
+        .card-num {
+            position: absolute;
+            top: 0.9rem;
+            left: 1rem;
+            font-size: 0.6rem;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 0.8rem;
+            right: 0.9rem;
+            font-size: 0.6rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            background: rgba(250, 250, 248, 0.9);
+            border: 1px solid var(--border);
+            padding: 0.18rem 0.5rem;
+            border-radius: 100px;
+            opacity: 0;
+            transform: translateY(-3px);
+            transition: all 0.2s;
+        }
+
+        .card:hover .card-tag {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.05rem;
+            font-weight: 400;
+            margin-bottom: 0.2rem;
+            transform: translateY(4px);
+            transition: transform 0.25s;
+        }
+
+        .card:hover .card-title {
+            transform: translateY(0);
+        }
+
+        .card-url {
+            font-size: 0.7rem;
+            color: var(--muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: color 0.2s;
+        }
+
+        .card:hover .card-url {
+            color: var(--accent);
+        }
+
+        .card-url svg {
+            opacity: 0;
+            transform: translate(-2px, 2px);
+            transition: all 0.2s;
+        }
+
+        .card:hover .card-url svg {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        /* PARTNERS */
+        .partners-section {
+            padding: 3.5rem 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .marquee-wrap {
+            overflow: hidden;
+            position: relative;
+            margin-top: 1.8rem;
+        }
+
+        .marquee-wrap::before,
+        .marquee-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .marquee-wrap::before {
+            left: 0;
+            background: linear-gradient(to right, var(--bg), transparent);
+        }
+
+        .marquee-wrap::after {
+            right: 0;
+            background: linear-gradient(to left, var(--bg), transparent);
+        }
+
+        .marquee {
+            display: flex;
+            align-items: center;
+            gap: 1px;
+            width: max-content;
+            animation: slide 28s linear infinite;
+        }
+
+        .marquee:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes slide {
+            from {
+                transform: translateX(0)
+            }
+
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        .partner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.1rem 2.2rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            height: 72px;
+            min-width: 140px;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+
+        .partner:hover {
+            background: var(--bg);
+        }
+
+        .partner img {
+            height: 32px;
+            width: auto;
+            max-width: 120px;
+            object-fit: contain;
+            filter: grayscale(100%) opacity(0.55);
+            transition: filter 0.25s;
+        }
+
+        .partner:hover img {
+            filter: grayscale(0%) opacity(1);
+        }
+
+        /* CONTACT */
+        .contact-section {
+            padding: 5rem 3rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-left h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-left p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            max-width: 320px;
+            line-height: 1.7;
+        }
+
+        .contact-right {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            padding-top: 0.5rem;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.7rem 1.3rem;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+
+        .contact-link:hover {
+            background: var(--text);
+            color: var(--bg);
+            border-color: var(--text);
+        }
+
+        .contact-link svg {
+            transition: transform 0.2s;
+        }
+
+        .contact-link:hover svg {
+            transform: translate(2px, -2px);
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.72rem;
+            color: var(--muted);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            nav,
+            .hero,
+            .section,
+            .partners-section,
+            .contact-section {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                display: none;
+            }
+
+            .contact-section {
+                flex-direction: column;
+            }
+
+            footer {
+                flex-direction: column;
+            }
+        }
+
+        /* Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-name">Leanne Frank</div>
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#partners">Partners</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero"> 
+        <div class="hero-eyebrow"><span class="dot"></span> Available for projects</div>
+        <h1>Bridging the gap<br>between a brand’s vision <br><em>and a user’s screen.</em></h1>
+        <p>I design and build websites for businesses, athletes, and brands — from landing pages to full web
+            applications.</p>
+    </div>
+
+    <!-- WORK -->
+    <div class="section" id="work">
+        <div class="section-header">
+            <span class="section-title">Selected Work</span>
+            <div class="filters">
+                <button class="filter-btn active" onclick="filter('all',this)">All</button>
+                <button class="filter-btn" onclick="filter('business',this)">Business</button>
+                <button class="filter-btn" onclick="filter('sports',this)">Sports</button>
+                <button class="filter-btn" onclick="filter('app',this)">App</button>
+            </div>
+        </div>
+
+        <div class="grid">
+
+            <!-- 
+      SCREENSHOTS: Place your screenshot files in the img/ folder.
+      Recommended size: 1280×960px (4:3 ratio), save as JPG for smaller file size.
+      Name them clearly, e.g. img/steelone.jpg, img/rentbox.jpg, etc.
+    -->
+
+            <a class="card reveal" data-cat="business" href="https://steelone.us" target="_blank">
+                <img class="card-img" src="img/steelone.jpg" alt="Steelone screenshot">
+                <div class="card-info">
+                    <span class="card-num">01</span>
+                    <span class="card-tag">Business</span>
+                    <div class="card-title">Steelone</div>
+                    <span class="card-url">steelone.us <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="M7 17L17 7M17 7H7M17 7v10" />
+                        </svg></span>
+                </div>
+            </a>
+
+            <a class="card reveal" data-cat="business" href="https://rentbox.rent" target="_blank">
+                <img class="card-img" src="img/rentbox.jpg" alt="Rentbox screenshot">
+                <div class="card-info">
+                    <span class="card-num">02</span>
+                    <span class="card-tag">Business</span>
+                    <div class="card-title">Rentbox</div>
+                    <span class="card-url">rentbox.rent <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="M7 17L17 7M17 7H7M17 7v10" />
+                        </svg></span>
+                </div>
+            </a>
+
+            <a class="card reveal" data-cat="business" href="https://jadesalvador.com" target="_blank">
+                <img class="card-img" src="img/jadesalvador.jpg" alt="Jade Salvador screenshot">
+                <div class="card-info">
+                    <span class="card-num">03</span>
+                    <span class="card-tag">Personal</span>
+                    <div class="card-title">Jade Salvador</div>
+                    <span class="card-url">jadesalvador.com <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="M7 17L17 7M17 7H7M17 7v10" />
+                        </svg></span>
+                </div>
+            </a>
+
+            <a class="card reveal" data-cat="sports" href="https://muayboranacademyph.com" target="_blank">
+                <img class="card-img" src="img/muayboran.jpg" alt="Muay Boran Academy screenshot">
+                <div class="card-info">
+                    <span class="card-num">04</span>
+                    <span class="card-tag">Sports</span>
+                    <div class="card-title">Muay Boran Academy</div>
+                    <span class="card-url">muayboranacademyph.com <svg width="10" height="10" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M7 17L17 7M17 7H7M17 7v10" />
+                        </svg></span>
+                </div>
+            </a>
+
+            <a class="card reveal" data-cat="app" href="https://goducate.vercel.app/" target="_blank">
+                <img class="card-img" src="img/goducate.jpg" alt="GoEducate screenshot">
+                <div class="card-info">
+                    <span class="card-num">05</span>
+                    <span class="card-tag">App</span>
+                    <div class="card-title">GoEducate</div>
+                    <span class="card-url">goducate.vercel.app <svg width="10" height="10" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M7 17L17 7M17 7H7M17 7v10" />
+                        </svg></span>
+                </div>
+            </a>
+
+            <a class="card reveal" data-cat="sports" href="https://www.batangas1pmfc.com/" target="_blank">
+                <img class="card-img" src="img/batangas1pmfc.jpg" alt="Batangas 1 PMFC screenshot">
+                <div class="card-info">
+                    <span class="card-num">06</span>
+                    <span class="card-tag">Sports</span>
+                    <div class="card-title">Batangas 1 PMFC</div>
+                    <span class="card-url">batangas1pmfc.com <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="M7 17L17 7M17 7H7M17 7v10" />
+                        </svg></span>
+                </div>
+            </a>
+
+            <a class="card reveal" data-cat="app" href="https://mbk-sigma.vercel.app/" target="_blank">
+                <img class="card-img" src="img/mbk.jpg" alt="MBK screenshot">
+                <div class="card-info">
+                    <span class="card-num">07</span>
+                    <span class="card-tag">App</span>
+                    <div class="card-title">MBK</div>
+                    <span class="card-url">mbk-sigma.vercel.app <svg width="10" height="10" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M7 17L17 7M17 7H7M17 7v10" />
+                        </svg></span>
+                </div>
+            </a>
+
+            <a class="card reveal" data-cat="app" href="https://locv2.vercel.app/" target="_blank">
+                <img class="card-img" src="img/locv2.jpg" alt="LOC v2 screenshot">
+                <div class="card-info">
+                    <span class="card-num">08</span>
+                    <span class="card-tag">App</span>
+                    <div class="card-title">LOC v2</div>
+                    <span class="card-url">locv2.vercel.app <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="M7 17L17 7M17 7H7M17 7v10" />
+                        </svg></span>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <!-- PARTNERS -->
+    <div class="partners-section" id="partners">
+        <div class="section-header">
+            <span class="section-title">Partners</span>
+        </div>
+        <div class="marquee-wrap">
+            <div class="marquee">
+                <!-- Original set — replace src with your actual logo files in img/ -->
+                <div class="partner"><img src="img/1.png" alt="Partner 1"></div>
+                <div class="partner"><img src="img/2.png" alt="Partner 2"></div>
+                <div class="partner"><img src="img/3.png" alt="Partner 3"></div>
+                <div class="partner"><img src="img/4.png" alt="Partner 4"></div>
+                <div class="partner"><img src="img/5.png" alt="Partner 5"></div>
+                <div class="partner"><img src="img/6.png" alt="Partner 6"></div>
+                <!-- Duplicate for seamless loop -->
+                <div class="partner"><img src="img/1.png" alt="Partner 1"></div>
+                <div class="partner"><img src="img/2.png" alt="Partner 2"></div>
+                <div class="partner"><img src="img/3.png" alt="Partner 3"></div>
+                <div class="partner"><img src="img/4.png" alt="Partner 4"></div>
+                <div class="partner"><img src="img/5.png" alt="Partner 5"></div>
+                <div class="partner"><img src="img/6.png" alt="Partner 6"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="contact-section" id="contact">
+        <div class="contact-left">
+            <h2>Let's build<br>something together.</h2>
+            <p>Have a project in mind? I'd love to hear about it. Send me a message and let's talk.</p>
+        </div>
+        <div class="contact-right">
+            <a class="contact-link" href="mailto:telesforoleannefrank@gmail.com">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="M2 7l10 7 10-7" />
+                </svg>
+                telesforoleannefrank@gmail.com
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M7 17L17 7M17 7H7M17 7v10" />
+                </svg>
+            </a>
+            <a class="contact-link" href="https://www.facebook.com/leannetelesforo" target="_blank">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+                Facebook
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M7 17L17 7M17 7H7M17 7v10" />
+                </svg>
+            </a>
+        </div>
+
+
+    </div>
+
+    <footer>
+        <span>© 2025 — Leanne Frank</span>
+        <span>Web Developer · Philippines</span>
+    </footer>
+
+    <script>
+        function filter(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.card').forEach(card => {
+                const show = cat === 'all' || card.dataset.cat === cat;
+                card.style.opacity = show ? '1' : '0.25';
+                card.style.pointerEvents = show ? 'auto' : 'none';
+            });
+        }
+
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach((e, i) => {
+                if (e.isIntersecting) {
+                    setTimeout(() => e.target.classList.add('in'), i * 60);
+                    obs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.08 });
+
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    </script>
+
+</body>
+
+</html>
