@@ -1,0 +1,21 @@
+{
+  "name": "Leanne Frank — Web Developer",
+  "short_name": "Leanne Frank",
+  "description": "Freelance web developer in the Philippines crafting clean, fast websites for businesses, athletes, and brands.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#fafaf8",
+  "theme_color": "#fafaf8",
+  "icons": [
+    {
+      "src": "img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
